@@ -21,7 +21,15 @@ sudo apt-get -y install python-pip --no-install-recommends
 sudo apt-get -y install python-setuptools --no-install-recommends
 sudo pip install --upgrade pip
 sudo pip install numpy
-sudo pip install matlab
+sudo pip install oct2py
+
+# Brew and Octave
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
+test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
+echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
+brew install octave
 
 # Access Control Settings
 sudo chmod 777 ./start

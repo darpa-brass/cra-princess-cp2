@@ -1,7 +1,7 @@
 To run the code, it will need:
-MATLAB R2018b
 Python 3.6
-Python modules: numpy 1.12.1, matlab 0.1, matlab.engine R2018a
+Octave 4.4.1
+Python modules: numpy 1.12.1, oct2py 4.0.6
 
 
 train_model(train_data_filename, model_filename)
