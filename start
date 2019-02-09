@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 # Add commands to execute from command line; no arguments are allowed for this script
-python3 JDA_interface.py
+python JDA_interface.py
