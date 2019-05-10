@@ -21,7 +21,8 @@ sudo apt-get -y install python-pip --no-install-recommends
 sudo apt-get -y install python-setuptools --no-install-recommends
 sudo pip install --upgrade pip
 sudo pip install numpy
-sudo pip install oct2py
+sudo pip install scipy
+sudo pip install scikit-learn
 
 # Brew and Octave
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
