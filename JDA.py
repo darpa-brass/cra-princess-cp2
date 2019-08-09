@@ -236,7 +236,7 @@ if __name__ == "__main__":
 		adapted_data_point = adaptation(testing_data_point, detection_info, model)
 		adapted_data_set[index] = adapted_data_point
 
-	np.savetxt('adaptation/adapted_data.txt', adapted_data_set, delimiter=',')
+	np.savetxt('/data/output/adapted_data.txt', adapted_data_set, delimiter=',')
 	#plot_chs(adapted_data_set.T, selected_orientaion + '_' + mode)
 
 
