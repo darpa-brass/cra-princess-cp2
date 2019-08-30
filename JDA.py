@@ -236,8 +236,15 @@ if __name__ == "__main__":
 		adapted_data_point = adaptation(testing_data_point, detection_info, model)
 		adapted_data_set[index] = adapted_data_point
 
-	np.savetxt('/data/output/adapted_data.txt', adapted_data_set, delimiter=',')
+	output_file = 'adapted_data.txt'
+	np.savetxt(output_file, adapted_data_set, delimiter=',')
+
+	# Save somewhere SwRI can access
+	docker_output_dir = '/data/cp2/'
+	os.makedirs(docker_output_dir, exist_ok=True)
+	copyfile(output_file, docker_output_dir + output_file)
 	#plot_chs(adapted_data_set.T, selected_orientaion + '_' + mode)
+
 
 
 
