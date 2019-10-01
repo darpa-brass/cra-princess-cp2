@@ -1,6 +1,7 @@
 import numpy as np
 from numpy import genfromtxt
 import matplotlib.pyplot as plt
+import os
 
 NO_FAILURE = 0
 DISCONNECTION = 1
