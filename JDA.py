@@ -203,47 +203,51 @@ if __name__ == "__main__":
 
 	selected_orientaions = ["base", "forward", "right"]
 	modes = ["normal", "bad", "switched"]
+	testing_nums = ["_01", "_02", "_03"]
 
 	for selected_orientaion in selected_orientaions:
 		for mode in modes:
-			test_root_path = root_path + selected_orientaion + "/" + mode + "_02/"
-			ch1_testing_path = test_root_path + "data_ch1.csv"
-			ch2_testing_path = test_root_path + "data_ch2.csv"
-			ch3_testing_path = test_root_path + "data_ch3.csv"
+			for testing_num in testing_nums:
+				if testing_num == "_03" and not(selected_orientaion == "base" and mode == "bad"):
+					continue
 
-			ch1_testing_data = genfromtxt(ch1_testing_path, delimiter=',')
-			ch1_testing_data = ch1_testing_data[:, 0]
-			ch1_testing_data = ch1_testing_data[~np.isnan(ch1_testing_data)]
+				test_root_path = root_path + selected_orientaion + "/" + mode + testing_num + "/"
+				ch1_testing_path = test_root_path + "data_ch1.csv"
+				ch2_testing_path = test_root_path + "data_ch2.csv"
+				ch3_testing_path = test_root_path + "data_ch3.csv"
 
-			ch2_testing_data = genfromtxt(ch2_testing_path, delimiter=',')
-			ch2_testing_data = ch2_testing_data[:, 0]
-			ch2_testing_data = ch2_testing_data[~np.isnan(ch2_testing_data)]
+				ch1_testing_data = genfromtxt(ch1_testing_path, delimiter=',')
+				ch1_testing_data = ch1_testing_data[:, 0]
+				ch1_testing_data = ch1_testing_data[~np.isnan(ch1_testing_data)]
 
-			ch3_testing_data = genfromtxt(ch3_testing_path, delimiter=',')
-			ch3_testing_data = ch3_testing_data[:, 0]
-			ch3_testing_data = ch3_testing_data[~np.isnan(ch3_testing_data)]
+				ch2_testing_data = genfromtxt(ch2_testing_path, delimiter=',')
+				ch2_testing_data = ch2_testing_data[:, 0]
+				ch2_testing_data = ch2_testing_data[~np.isnan(ch2_testing_data)]
 
-			testing_data = np.vstack([ch1_testing_data, ch2_testing_data, ch3_testing_data])
-			testing_data = testing_data.T
+				ch3_testing_data = genfromtxt(ch3_testing_path, delimiter=',')
+				ch3_testing_data = ch3_testing_data[:, 0]
+				ch3_testing_data = ch3_testing_data[~np.isnan(ch3_testing_data)]
 
-			adapted_data_set = np.zeros(testing_data.shape)
-			for index in range(len(testing_data)):
-				testing_data_point = np.copy(testing_data[index])
-				detection_info = failure_detection(testing_data_point, model)
-				adapted_data_point = adaptation(testing_data_point, detection_info, model)
-				adapted_data_set[index] = adapted_data_point
+				testing_data = np.vstack([ch1_testing_data, ch2_testing_data, ch3_testing_data])
+				testing_data = testing_data.T
 
+				adapted_data_set = np.zeros(testing_data.shape)
+				for index in range(len(testing_data)):
+					testing_data_point = np.copy(testing_data[index])
+					detection_info = failure_detection(testing_data_point, model)
+					adapted_data_point = adaptation(testing_data_point, detection_info, model)
+					adapted_data_set[index] = adapted_data_point
 
-			output_file = selected_orientaion + '_' + mode + '_adapted_data.txt'
-			np.savetxt('adaptation/' + output_file, adapted_data_set, delimiter=',')
+				output_file = selected_orientaion + '_' + mode + testing_num + '_adapted_data.txt'
+				np.savetxt('adaptation/' + output_file, adapted_data_set, delimiter=',')
 
-			#plot_chs(testing_data.T, 'original_' + selected_orientaion + '_' + mode)
-			#plot_chs(adapted_data_set.T, 'adapted_' + selected_orientaion + '_' + mode)
+				#plot_chs(testing_data.T, 'original_' + selected_orientaion + '_' + mode + testing_num)
+				#plot_chs(adapted_data_set.T, 'adapted_' + selected_orientaion + '_' + mode + testing_num)
 
-			# Save somewhere SwRI can access
-			docker_output_dir = '/data/cp2/'
-			os.makedirs(docker_output_dir, exist_ok=True)
-			copyfile(output_file, docker_output_dir + output_file)
+				# Save somewhere SwRI can access
+				docker_output_dir = '/data/cp2/'
+				os.makedirs(docker_output_dir, exist_ok=True)
+				copyfile(output_file, docker_output_dir + output_file)
 
 
 
