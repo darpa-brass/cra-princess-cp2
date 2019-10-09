@@ -248,7 +248,7 @@ if __name__ == "__main__":
 				# Save somewhere SwRI can access
 				docker_output_dir = '/data/cp2/'
 				os.makedirs(docker_output_dir, exist_ok=True)
-				shutil.copyfile(output_file, docker_output_dir + output_file)
+				shutil.copyfile('adaptation/' + output_file, docker_output_dir + output_file)
 
 
 
