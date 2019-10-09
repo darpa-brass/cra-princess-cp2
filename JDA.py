@@ -2,6 +2,7 @@ import numpy as np
 from numpy import genfromtxt
 import matplotlib.pyplot as plt
 import os
+import shutil
 
 NO_FAILURE = 0
 DISCONNECTION = 1
@@ -247,7 +248,7 @@ if __name__ == "__main__":
 				# Save somewhere SwRI can access
 				docker_output_dir = '/data/cp2/'
 				os.makedirs(docker_output_dir, exist_ok=True)
-				copyfile(output_file, docker_output_dir + output_file)
+				shutil.copyfile(output_file, docker_output_dir + output_file)
 
 
 
